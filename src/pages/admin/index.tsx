@@ -1,6 +1,6 @@
-import { Button, DatePicker, Form, message } from 'antd';
-import React, { useRef, useState } from 'react';
-import { loadData, remove } from './service';
+import {Button, DatePicker, Form, message, TreeSelect} from 'antd';
+import React, {useEffect, useRef, useState} from 'react';
+import {departmentTree, loadData, remove} from './service';
 import { ActionType, ProTable } from '@ant-design/pro-components';
 import Add from './components/Add';
 
@@ -8,7 +8,12 @@ export default () => {
   const actionRef = useRef<ActionType>();
   const [addModalVisible, setAddModalVisible] = useState<boolean>(false);
   const [values, setValues] = useState<Record<string, any>>({});
-
+  const [treeDepartments, setTreeDepartments] = useState<Record<string, any>[]>([]);
+  useEffect(() => {
+    departmentTree().then((result) => {
+      setTreeDepartments(result.data || []);
+    });
+  }, []);
   return (
     <div>
       <ProTable
@@ -17,6 +22,22 @@ export default () => {
         size="small"
         rowKey="id"
         columns={[
+          {
+            title: '部门',
+            dataIndex: 'departmentName',
+            renderFormItem: () => (
+              <Form.Item name='departmentId'>
+                <TreeSelect
+                  treeLine
+                  allowClear
+                  showSearch
+                  fieldNames={{ label: 'name', value: 'id' }}
+                  treeDefaultExpandAll
+                  treeData={treeDepartments}
+                />
+              </Form.Item>
+            ),
+          },
           {
             title: '用户名',
             dataIndex: 'username',

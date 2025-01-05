@@ -35,3 +35,11 @@ export const save = async (params: Record<string, any>) => {
     data: qs.stringify(params),
   });
 };
+
+
+export const departmentTree = async () => {
+  return request(`http://localhost:8080/api/department/tree`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  });
+};

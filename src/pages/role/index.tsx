@@ -1,16 +1,22 @@
 import { ActionType, PageContainer, ProTable } from '@ant-design/pro-components';
 import { list, remove } from './serivice';
-import { Button, DatePicker, Form, message, Modal } from 'antd';
+import {Button, DatePicker, Form, message, Modal, TreeSelect} from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import Add from './compnents/Add';
-import React, { useRef, useState } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
+import {departmentTree} from "@/pages/admin/service";
 
 export default () => {
   const actionRef = useRef<ActionType>();
   const [addModalVisible, setAddModalVisible] = useState<boolean>(false);
   const [values, setValues] = useState<Record<string, any>>({});
   const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([]);
-
+  const [treeDepartments, setTreeDepartments] = useState<Record<string, any>[]>([]);
+  useEffect(() => {
+    departmentTree().then((result) => {
+      setTreeDepartments(result.data || []);
+    });
+  }, []);
   return (
     <PageContainer title={false}>
       <ProTable
@@ -28,6 +34,22 @@ export default () => {
         }}
         tableAlertRender={false}
         columns={[
+          {
+            title: '部门',
+            dataIndex: 'departmentName',
+            renderFormItem: () => (
+              <Form.Item name='departmentId'>
+                <TreeSelect
+                  treeLine
+                  allowClear
+                  showSearch
+                  fieldNames={{ label: 'name', value: 'id' }}
+                  treeDefaultExpandAll
+                  treeData={treeDepartments}
+                />
+              </Form.Item>
+            ),
+          },
           {
             title: '名称',
             dataIndex: 'name',
@@ -57,6 +79,7 @@ export default () => {
                 key="edit"
                 onClick={() => {
                   setAddModalVisible(true);
+                  console.log('record',record);
                   setValues(record);
                 }}
               >
@@ -126,15 +149,19 @@ export default () => {
         ]}
         request={list}
       />
-      <Add
-        values={values}
-        open={addModalVisible}
-        onClose={() => {
-          setAddModalVisible(false);
-          setValues({});
-          actionRef.current?.reload();
-        }}
-      />
+      {
+        addModalVisible ? (
+          <Add
+            values={values}
+            open={addModalVisible}
+            onClose={() => {
+              setAddModalVisible(false);
+              setValues({});
+              actionRef.current?.reload();
+            }}
+          />
+        ) : null
+      }
     </PageContainer>
   );
 };

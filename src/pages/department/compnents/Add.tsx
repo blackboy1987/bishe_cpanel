@@ -1,6 +1,6 @@
-import {Form, Input, message, Modal, TreeSelect} from 'antd';
-import { save,departmentTree } from '../serivice';
-import React, {useEffect, useState} from 'react';
+import { Form, Input, InputNumber, message, Modal, TreeSelect } from 'antd';
+import { save, tree } from '../serivice';
+import { useEffect, useState } from 'react';
 
 interface AddProps {
   onClose: () => void;
@@ -10,17 +10,16 @@ interface AddProps {
 
 export default ({ onClose, open, values }: AddProps) => {
   const [form] = Form.useForm();
-  const [treeDepartments, setTreeDepartments] = useState<Record<string, any>[]>([]);
+  const [treeMenus, setTreeMenus] = useState<Record<string, any>[]>([]);
   useEffect(() => {
-    departmentTree().then((result) => {
-      setTreeDepartments(result.data || []);
+    tree().then((result) => {
+      setTreeMenus(result.data || []);
     });
-    console.log(values);
     form.setFieldsValue(values);
   }, []);
   return (
     <Modal
-      title="新增角色"
+      title="新增部门"
       open={open}
       onOk={() => {
         form.validateFields().then((formValues) => {
@@ -40,23 +39,14 @@ export default ({ onClose, open, values }: AddProps) => {
         <Form.Item name="id" style={{ display: 'none' }}>
           <Input />
         </Form.Item>
-        <Form.Item
-          label="所属部门"
-          name="departmentId"
-          rules={[
-            {
-              required: true,
-              message: '请选择部门',
-            },
-          ]}
-        >
+        <Form.Item label="上级部门" name="parentId">
           <TreeSelect
             treeLine
             allowClear
             showSearch
             fieldNames={{ label: 'name', value: 'id' }}
             treeDefaultExpandAll
-            treeData={treeDepartments}
+            treeData={treeMenus}
           />
         </Form.Item>
         <Form.Item
@@ -65,14 +55,23 @@ export default ({ onClose, open, values }: AddProps) => {
           rules={[
             {
               required: true,
-              message: '请输入角色名称',
+              message: '请输入部门名称',
             },
           ]}
         >
           <Input />
         </Form.Item>
-        <Form.Item label="描述" name="memo">
-          <Input.TextArea autoSize={{ minRows: 4, maxRows: 4 }} />
+        <Form.Item
+          label="排序"
+          name="order"
+          rules={[
+            {
+              required: true,
+              message: '请设置部门排序',
+            },
+          ]}
+        >
+          <InputNumber min={0} precision={0} step={1} style={{ width: '100%' }} />
         </Form.Item>
       </Form>
     </Modal>

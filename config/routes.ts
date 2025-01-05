@@ -9,6 +9,7 @@ export default [
   { name: '角色管理', path: '/role', component: './role' },
   { name: '菜单管理', icon: 'menu', path: '/menu', component: './menu' },
   { name: '权限控制', path: '/permission', component: './permission' },
+  { name: '部门管理', path: '/department', component: './department' },
   { path: '/', redirect: '/welcome' },
   { path: '*', layout: false, component: './404' },
 ];

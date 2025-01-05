@@ -4,41 +4,31 @@ import dayjs from 'dayjs';
 
 export const list = async (params: Record<string, any>) => {
   const formValues = { ...params, pageNumber: params.current || 1 };
-  // @ts-ignore
-  if (formValues.rangeDate && formValues.rangeDate.length === 2) {
-    // @ts-ignore
-    formValues.beginDate = dayjs(formValues.rangeDate[0]).format('YYYY-MM-DD 00:00:00');
-    // @ts-ignore
-    formValues.endDate = dayjs(formValues.rangeDate[1]).format('YYYY-MM-DD 23:59:59');
-  }
-  // @ts-ignore
-  delete formValues.rangeDate;
-  return request('http://localhost:8080/api/role/list', {
+  return request('http://localhost:8080/api/department/list', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(formValues),
   }).then((res) => ({
     success: true,
-    data: res.data.content,
-    total: res.data.total,
+    data: res.data,
+    total: res.data.length,
   }));
 };
 export const save = async (params: Record<string, any>) => {
-  return request(`http://localhost:8080/api/role/${params.id ? 'update' : 'save'}`, {
+  return request(`http://localhost:8080/api/department/${params.id ? 'update' : 'save'}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(params),
   });
 };
 export const remove = async (params: Record<string, any>) => {
-  return request(`http://localhost:8080/api/role/delete`, {
+  return request(`http://localhost:8080/api/department/delete`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(params),
   });
 };
-
-export const departmentTree = async () => {
+export const tree = async () => {
   return request(`http://localhost:8080/api/department/tree`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
