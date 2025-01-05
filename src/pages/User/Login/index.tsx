@@ -133,7 +133,6 @@ const Login: React.FC = () => {
           {Settings.title && ` - ${Settings.title}`}
         </title>
       </Helmet>
-      <Lang />
       <div
         style={{
           flex: '1',
