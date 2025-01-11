@@ -107,8 +107,9 @@ const Login: React.FC = () => {
         ...values,
         type,
       });
-      if (msg.status === 'ok') {
+      if (msg.code === 0) {
         const defaultLoginSuccessMessage = '登录成功！';
+        localStorage.setItem('token', msg.data || '');
         message.success(defaultLoginSuccessMessage);
         await fetchUserInfo();
         const urlParams = new URL(window.location.href).searchParams;
@@ -124,7 +125,7 @@ const Login: React.FC = () => {
       message.error(defaultLoginFailureMessage);
     }
   };
-  const { status, type: loginType } = userLoginState;
+  const { code,msg } = userLoginState;
   return (
     <div className={styles.container}>
       <Helmet>
@@ -171,8 +172,8 @@ const Login: React.FC = () => {
             ]}
           />
 
-          {status === 'error' && loginType === 'account' && (
-            <LoginMessage content={'错误的用户名和密码(admin/ant.design)'} />
+          {code !== 0 && type === 'account' && msg && (
+            <LoginMessage content={msg} />
           )}
           {type === 'account' && (
             <>
@@ -207,7 +208,7 @@ const Login: React.FC = () => {
             </>
           )}
 
-          {status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}
+          {code !== 0 && type === 'mobile' && msg && <LoginMessage content={msg} />}
           {type === 'mobile' && (
             <>
               <ProFormText

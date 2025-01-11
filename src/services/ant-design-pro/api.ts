@@ -1,13 +1,14 @@
 // @ts-ignore
 /* eslint-disable */
 import { request } from '@umijs/max';
+import qs from "qs";
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
   return request<{
     data: API.CurrentUser;
-  }>('/api/currentUser', {
-    method: 'GET',
+  }>('http://localhost:8080/api/currentUser', {
+    method: 'POST',
     ...(options || {}),
   });
 }
@@ -22,12 +23,10 @@ export async function outLogin(options?: { [key: string]: any }) {
 
 /** 登录接口 POST /api/login/account */
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>('/api/login/account', {
+  return request<API.LoginResult>(`http://localhost:8080/api/login`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    data: body,
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    data: qs.stringify(body),
     ...(options || {}),
   });
 }
