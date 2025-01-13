@@ -1,8 +1,9 @@
-import {Button, DatePicker, Form, message, TreeSelect} from 'antd';
-import React, {useEffect, useRef, useState} from 'react';
-import {departmentTree, loadData, remove} from './service';
+import {Button, DatePicker, Form, message, Modal, TreeSelect} from 'antd';
+import React, {act, useEffect, useRef, useState} from 'react';
+import {departmentTree, loadData, remove, unLock} from './service';
 import { ActionType, ProTable } from '@ant-design/pro-components';
 import Add from './components/Add';
+import {LockOutlined} from '@ant-design/icons';
 
 export default () => {
   const actionRef = useRef<ActionType>();
@@ -43,6 +44,18 @@ export default () => {
             dataIndex: 'username',
           },
           {
+            title: '锁定',
+            dataIndex: 'isLocked',
+            valueEnum:{
+              true:{
+                text:'锁定'
+              },
+              false:{
+                text:'未锁定'
+              },
+            }
+          },
+          {
             title: '创建时间',
             dataIndex: 'createdDate',
             width: 150,
@@ -68,6 +81,33 @@ export default () => {
                 }}
               >
                 修改
+              </Button>,
+              record.isLocked && <Button
+                key="unLock"
+                type="primary"
+                onClick={() => {
+                  Modal.confirm({
+                    title:'提醒',
+                    content:'您正在进行账户解锁操作',
+                    onOk: () => {
+                      // 调用接口执行解锁操作
+                      unLock({
+                        id:record.id,
+                      }).then(result=>{
+                        if(result.code==0){
+                          message.success(result.msg).then()
+                        }else{
+                          message.error(result.msg).then();
+                        }
+                        actionRef.current?.reload();
+                      })
+                    }
+                  })
+                }}
+                danger
+                icon={<LockOutlined />}
+              >
+                解锁
               </Button>,
               <Button
                 key="delete"

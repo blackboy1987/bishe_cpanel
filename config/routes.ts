@@ -10,6 +10,8 @@ export default [
   { name: '菜单管理', icon: 'menu', path: '/menu', component: './menu' },
   { name: '权限控制', path: '/permission', component: './permission' },
   { name: '部门管理', path: '/department', component: './department' },
+  { name: '日志管理', path: '/optLog', component: './optLog' },
+  { name: '登录日志管理', path: '/loginLog', component: './loginLog' },
   { path: '/', redirect: '/welcome' },
   { path: '*', layout: false, component: './404' },
 ];

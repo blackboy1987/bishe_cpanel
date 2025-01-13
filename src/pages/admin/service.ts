@@ -43,3 +43,9 @@ export const departmentTree = async () => {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   });
 };
+export const unLock = async (params: Record<string, any>) => {
+  return request(`http://localhost:8080/api/admin/unLock`, {
+    method: 'POST',
+    data: qs.stringify(params),
+  });
+};
