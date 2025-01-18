@@ -18,29 +18,35 @@ export default () => {
           {
             title: '用户名',
             dataIndex: 'username',
+            hideInSearch:true,
           },
           {
             title: '密码',
             dataIndex: 'password',
+            hideInSearch:true,
           },
           {
             title: 'IP',
             dataIndex: 'ip',
+            hideInSearch:true,
           },
           {
             title: 'sec-ch-ua',
             dataIndex: 'ua',
+            hideInSearch:true,
           },
           {
             title: 'user-agent',
             dataIndex: 'userAgent',
+            hideInSearch:true,
           },
           {
             title: '登录结果',
             dataIndex: 'result',
+            hideInSearch:true,
           },
           {
-            title: '登录时间',
+            title: '操作时间',
             dataIndex: 'createdDate',
             valueType: 'dateTime',
             width: 150,
@@ -49,10 +55,6 @@ export default () => {
                 <DatePicker.RangePicker />
               </Form.Item>
             ),
-          },
-          {
-            title: '操作',
-            dataIndex: 'action',
           },
         ]}
         request={list}

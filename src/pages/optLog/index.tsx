@@ -18,17 +18,19 @@ export default () => {
           {
             title: '操作人',
             dataIndex: 'username',
+            hideInSearch:true,
           },
           {
             title: 'IP',
             dataIndex: 'ip',
+            hideInSearch:true,
           },
           {
             title: '操作',
             dataIndex: 'action',
           },
           {
-            title: '创建时间',
+            title: '操作时间',
             dataIndex: 'createdDate',
             valueType: 'dateTime',
             width: 150,
