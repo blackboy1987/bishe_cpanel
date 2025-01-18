@@ -6,7 +6,10 @@ export const list = async (params: Record<string, any>) => {
   return request('http://localhost:8080/api/permission/list', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    data: qs.stringify(params),
+    data: qs.stringify({
+      ...params,
+      pageNumber: params.current || 1,
+    }),
   }).then((res) => ({
     success: true,
     data: res.data.content,
