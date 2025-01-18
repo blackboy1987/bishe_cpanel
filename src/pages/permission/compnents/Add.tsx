@@ -79,16 +79,10 @@ export default ({ onClose, open, values, menuId }: AddProps) => {
           <Input />
         </Form.Item>
         <Form.Item
-          label="标识符"
-          name="action"
-          rules={[
-            {
-              required: true,
-              message: '请输入权限标名称',
-            },
-          ]}
+          label="权限资源"
+          name="resource"
         >
-          <Input />
+          <Input.TextArea autoSize={{minRows: 8, maxRows: 8}} />
         </Form.Item>
         <Form.Item label="描述" name="memo">
           <Input.TextArea autoSize={{ minRows: 3, maxRows: 3 }} />

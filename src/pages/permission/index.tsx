@@ -63,8 +63,8 @@ export default () => {
                 dataIndex: 'memo',
               },
               {
-                title: '标识符',
-                dataIndex: 'action',
+                title: '权限资源',
+                dataIndex: 'resource',
               },
               {
                 title: '创建时间',
