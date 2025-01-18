@@ -1,6 +1,7 @@
 import { request } from '@umijs/max';
 import qs from 'qs';
 import dayjs from 'dayjs';
+import {Constants} from "@/util/constants";
 
 export const list = async (params: Record<string, any>) => {
   const formValues = { ...params, pageNumber: params.current || 1 };
@@ -13,7 +14,7 @@ export const list = async (params: Record<string, any>) => {
   }
   // @ts-ignore
   delete formValues.rangeDate;
-  return request('http://localhost:8080/api/login_log/list', {
+  return request(Constants.api+'/login_log/list', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(formValues),

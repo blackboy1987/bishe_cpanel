@@ -1,5 +1,6 @@
 import { request } from '@@/exports';
 import qs from 'qs';
+import {Constants} from "@/util/constants";
 
 export const loadData = async (params: Record<string, any>) => {
   const formValues = { ...params, pageNumber: params.current || 1 };
@@ -12,7 +13,7 @@ export const loadData = async (params: Record<string, any>) => {
   }
   // @ts-ignore
   delete formValues.rangeDate;
-  return request('http://localhost:8080/api/admin/list', {
+  return request(Constants.api+'/admin/list', {
     method: 'POST',
     data: qs.stringify(formValues),
   }).then((res) => ({
@@ -23,14 +24,14 @@ export const loadData = async (params: Record<string, any>) => {
 };
 
 export const remove = async (params: Record<string, any>) => {
-  return request('http://localhost:8080/api/admin/delete', {
+  return request(Constants.api+'/admin/delete', {
     method: 'POST',
     data: qs.stringify(params),
   });
 };
 
 export const save = async (params: Record<string, any>) => {
-  return request(`http://localhost:8080/api/admin/${params.id ? 'update' : 'save'}`, {
+  return request(`${Constants.api}/admin/${params.id ? 'update' : 'save'}`, {
     method: 'POST',
     data: qs.stringify(params),
   });
@@ -38,13 +39,13 @@ export const save = async (params: Record<string, any>) => {
 
 
 export const departmentTree = async () => {
-  return request(`http://localhost:8080/api/department/tree`, {
+  return request(`${Constants.api}/department/tree`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   });
 };
 export const unLock = async (params: Record<string, any>) => {
-  return request(`http://localhost:8080/api/admin/unLock`, {
+  return request(`${Constants.api}/admin/unLock`, {
     method: 'POST',
     data: qs.stringify(params),
   });

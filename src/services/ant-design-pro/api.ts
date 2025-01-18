@@ -2,12 +2,13 @@
 /* eslint-disable */
 import { request } from '@umijs/max';
 import qs from "qs";
+import {Constants} from "@/util/constants";
 
 /** 获取当前的用户 GET /api/currentUser */
 export async function currentUser(options?: { [key: string]: any }) {
   return request<{
     data: API.CurrentUser;
-  }>('http://localhost:8080/api/currentUser', {
+  }>(Constants.api+'/currentUser', {
     method: 'POST',
     ...(options || {}),
   });
@@ -23,7 +24,7 @@ export async function outLogin(options?: { [key: string]: any }) {
 
 /** 登录接口 POST /api/login/account */
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
-  return request<API.LoginResult>(`http://localhost:8080/api/login`, {
+  return request<API.LoginResult>(`${Constants.api}/login`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(body),
@@ -92,7 +93,7 @@ export async function removeRule(options?: { [key: string]: any }) {
   });
 }
 export const getMenus = async () =>{
-  return request("http://localhost:8080/api/menus",{
+  return request(Constants.api+"/menus",{
     method:"POST",
   }).then(result=>result.data);
 }

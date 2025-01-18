@@ -1,6 +1,7 @@
 import { request } from '@umijs/max';
 import qs from 'qs';
 import dayjs from 'dayjs';
+import {Constants} from "@/util/constants";
 
 export const list = async (params: Record<string, any>) => {
   const formValues = { ...params, pageNumber: params.current || 1 };
@@ -13,7 +14,7 @@ export const list = async (params: Record<string, any>) => {
   }
   // @ts-ignore
   delete formValues.rangeDate;
-  return request('http://localhost:8080/api/menu/list', {
+  return request(Constants.api+'/menu/list', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(formValues),
@@ -24,21 +25,21 @@ export const list = async (params: Record<string, any>) => {
   }));
 };
 export const save = async (params: Record<string, any>) => {
-  return request(`http://localhost:8080/api/menu/${params.id ? 'update' : 'save'}`, {
+  return request(`${Constants.api}/menu/${params.id ? 'update' : 'save'}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(params),
   });
 };
 export const remove = async (params: Record<string, any>) => {
-  return request(`http://localhost:8080/api/menu/delete`, {
+  return request(`${Constants.api}/menu/delete`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(params),
   });
 };
 export const tree = async () => {
-  return request(`http://localhost:8080/api/menu/tree`, {
+  return request(`${Constants.api}/menu/tree`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   });

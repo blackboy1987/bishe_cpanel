@@ -11,7 +11,7 @@ interface RoleModalProps {
 }
 
 export default ({ open, onClose, onSelect, selectedList }: RoleModalProps) => {
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<ActionType>(null);
   const [departmentList, setDepartmentList] = useState<Record<string, any>[]>(selectedList || []);
 
   useEffect(() => {

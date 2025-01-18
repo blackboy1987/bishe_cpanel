@@ -1,6 +1,7 @@
 import { request } from '@umijs/max';
 import qs from 'qs';
 import dayjs from 'dayjs';
+import {Constants} from "@/util/constants";
 
 export const list = async (params: Record<string, any>) => {
   const formValues = { ...params, pageNumber: params.current || 1 };
@@ -13,7 +14,7 @@ export const list = async (params: Record<string, any>) => {
   }
   // @ts-ignore
   delete formValues.rangeDate;
-  return request('http://localhost:8080/api/role/list', {
+  return request(Constants.api+'/role/list', {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(formValues),
@@ -24,14 +25,14 @@ export const list = async (params: Record<string, any>) => {
   }));
 };
 export const save = async (params: Record<string, any>) => {
-  return request(`http://localhost:8080/api/role/${params.id ? 'update' : 'save'}`, {
+  return request(`${Constants.api}/role/${params.id ? 'update' : 'save'}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(params),
   });
 };
 export const remove = async (params: Record<string, any>) => {
-  return request(`http://localhost:8080/api/role/delete`, {
+  return request(`${Constants.api}/role/delete`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(params),
@@ -39,13 +40,13 @@ export const remove = async (params: Record<string, any>) => {
 };
 
 export const departmentTree = async () => {
-  return request(`http://localhost:8080/api/department/tree`, {
+  return request(`${Constants.api}/department/tree`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   });
 };
 export const permission = async (params: Record<string, any>) => {
-  return request(`http://localhost:8080/api/role/permission`, {
+  return request(`${Constants.api}/role/permission`, {
     method: 'POST',
     data: qs.stringify(params),
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
@@ -53,7 +54,7 @@ export const permission = async (params: Record<string, any>) => {
 };
 
 export const savePermission = async (params: Record<string, any>) => {
-  return request(`http://localhost:8080/api/role/savePermission`, {
+  return request(`${Constants.api}/role/savePermission`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(params),
