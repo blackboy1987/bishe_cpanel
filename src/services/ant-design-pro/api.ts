@@ -91,3 +91,8 @@ export async function removeRule(options?: { [key: string]: any }) {
     },
   });
 }
+export const getMenus = async () =>{
+  return request("http://localhost:8080/api/menus",{
+    method:"POST",
+  }).then(result=>result.data);
+}

@@ -5,10 +5,12 @@ import { PlusOutlined } from '@ant-design/icons';
 import Add from './compnents/Add';
 import React, {useEffect, useRef, useState} from 'react';
 import {departmentTree} from "@/pages/admin/service";
+import Permission from "@/pages/role/compnents/Permission";
 
 export default () => {
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<ActionType>(null);
   const [addModalVisible, setAddModalVisible] = useState<boolean>(false);
+  const [permissionModalVisible, setPermissionModalVisible] = useState<boolean>(false);
   const [values, setValues] = useState<Record<string, any>>({});
   const [selectedKeys, setSelectedKeys] = useState<React.Key[]>([]);
   const [treeDepartments, setTreeDepartments] = useState<Record<string, any>[]>([]);
@@ -73,17 +75,25 @@ export default () => {
             title: '操作',
             dataIndex: 'opt',
             valueType: 'option',
-            width: 90,
+            width: 120,
             render: (_, record) => [
               <a
                 key="edit"
                 onClick={() => {
                   setAddModalVisible(true);
-                  console.log('record',record);
                   setValues(record);
                 }}
               >
                 编辑
+              </a>,
+              <a
+                key="permission"
+                onClick={() => {
+                  setPermissionModalVisible(true);
+                  setValues(record);
+                }}
+              >
+                权限
               </a>,
               <a
                 key="remove"
@@ -156,6 +166,19 @@ export default () => {
             open={addModalVisible}
             onClose={() => {
               setAddModalVisible(false);
+              setValues({});
+              actionRef.current?.reload();
+            }}
+          />
+        ) : null
+      }
+      {
+        permissionModalVisible && Object.keys(values).length>0 ? (
+          <Permission
+            values={values}
+            open={permissionModalVisible}
+            onClose={() => {
+              setPermissionModalVisible(false);
               setValues({});
               actionRef.current?.reload();
             }}

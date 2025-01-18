@@ -94,15 +94,22 @@ export const errorConfig: RequestConfig = {
   requestInterceptors: [
     (config: RequestOptions) => {
       // 拦截请求配置，进行个性化处理。
-      const url = config?.url?.concat('?token = 123');
-      return {
-        ...config,
-        url,
-        headers: {
-          ...config.headers,
-          'token': localStorage.getItem('token'),
-        },
+      const url = config?.url;
+      const headers = {
+        ...(config.headers || {}),
       };
+      if (config.method === 'POST') {
+        headers['Content-Type'] = 'application/x-www-form-urlencoded';
+      }
+      const newConfig = {
+        ...config,
+        headers: {
+          ...headers,
+          token: localStorage.getItem('token') || '',
+        },
+        withCredentials: true,
+      };
+      return { ...newConfig, url };
     },
   ],
 

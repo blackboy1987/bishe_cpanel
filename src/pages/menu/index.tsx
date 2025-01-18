@@ -29,6 +29,14 @@ export default () => {
             ),
           },
           {
+            title: 'url',
+            dataIndex: 'url',
+          },
+          {
+            title: '组件',
+            dataIndex: 'component',
+          },
+          {
             title: '排序',
             dataIndex: 'order',
           },

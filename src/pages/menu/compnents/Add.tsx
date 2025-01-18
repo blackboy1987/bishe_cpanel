@@ -62,6 +62,30 @@ export default ({ onClose, open, values }: AddProps) => {
           <Input />
         </Form.Item>
         <Form.Item
+          label="路由"
+          name="url"
+          rules={[
+            {
+              required: true,
+              message: '请输入菜单路由',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          label="组件"
+          name="component"
+          rules={[
+            {
+              required: true,
+              message: '请输入菜单组件',
+            },
+          ]}
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
           label="排序"
           name="order"
           rules={[

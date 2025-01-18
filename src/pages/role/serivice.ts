@@ -44,3 +44,18 @@ export const departmentTree = async () => {
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   });
 };
+export const permission = async (params: Record<string, any>) => {
+  return request(`http://localhost:8080/api/role/permission`, {
+    method: 'POST',
+    data: qs.stringify(params),
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  });
+};
+
+export const savePermission = async (params: Record<string, any>) => {
+  return request(`http://localhost:8080/api/role/savePermission`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    data: qs.stringify(params),
+  });
+};

@@ -1,5 +1,5 @@
 import { AvatarDropdown, AvatarName, Footer } from '@/components';
-import { currentUser as queryCurrentUser } from '@/services/ant-design-pro/api';
+import { currentUser as queryCurrentUser, getMenus } from '@/services/ant-design-pro/api';
 import type { Settings as LayoutSettings } from '@ant-design/pro-components';
 import type { RunTimeLayoutConfig } from '@umijs/max';
 import { history } from '@umijs/max';
@@ -52,7 +52,18 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
       },
     },
     waterMarkProps: {
-      content: initialState?.currentUser?.name,
+      content: initialState?.currentUser?.username,
+    },
+    menu: {
+      request: async (params, defaultMenuData) => {
+        return await getMenus();
+      },
+    },
+    postMenuData:(menuList)=>{
+      return (menuList||[]).map((item:Record<string, any>)=>({
+        ...item,
+        component:React.lazy(() => import(`./${item.component}`)),
+      }))
     },
     footerRender: () => <Footer />,
     onPageChange: () => {
