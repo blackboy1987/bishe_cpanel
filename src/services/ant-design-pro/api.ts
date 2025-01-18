@@ -26,7 +26,6 @@ export async function outLogin(options?: { [key: string]: any }) {
 export async function login(body: API.LoginParams, options?: { [key: string]: any }) {
   return request<API.LoginResult>(`${Constants.api}/login`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(body),
     ...(options || {}),
   });

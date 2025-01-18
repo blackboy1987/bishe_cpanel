@@ -16,7 +16,6 @@ export const list = async (params: Record<string, any>) => {
   delete formValues.rangeDate;
   return request(Constants.api+'/opt_log/list', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(formValues),
   }).then((res) => ({
     success: true,

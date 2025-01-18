@@ -16,7 +16,6 @@ export const list = async (params: Record<string, any>) => {
   delete formValues.rangeDate;
   return request(Constants.api+'/role/list', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(formValues),
   }).then((res) => ({
     success: true,
@@ -27,14 +26,12 @@ export const list = async (params: Record<string, any>) => {
 export const save = async (params: Record<string, any>) => {
   return request(`${Constants.api}/role/${params.id ? 'update' : 'save'}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(params),
   });
 };
 export const remove = async (params: Record<string, any>) => {
   return request(`${Constants.api}/role/delete`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(params),
   });
 };
@@ -42,21 +39,18 @@ export const remove = async (params: Record<string, any>) => {
 export const departmentTree = async () => {
   return request(`${Constants.api}/department/tree`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   });
 };
 export const permission = async (params: Record<string, any>) => {
   return request(`${Constants.api}/role/permission`, {
     method: 'POST',
     data: qs.stringify(params),
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   });
 };
 
 export const savePermission = async (params: Record<string, any>) => {
   return request(`${Constants.api}/role/savePermission`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(params),
   });
 };

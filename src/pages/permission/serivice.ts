@@ -6,7 +6,6 @@ import {Constants} from "@/util/constants";
 export const list = async (params: Record<string, any>) => {
   return request(Constants.api+'/permission/list', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify({
       ...params,
       pageNumber: params.current || 1,
@@ -20,20 +19,17 @@ export const list = async (params: Record<string, any>) => {
 export const save = async (params: Record<string, any>) => {
   return request(`${Constants.api}/permission/${params.id ? 'update' : 'save'}`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(params),
   });
 };
 export const remove = async (params: Record<string, any>) => {
   return request(`${Constants.api}/permission/delete`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     data: qs.stringify(params),
   });
 };
 export const menu = async () => {
   return request(`${Constants.api}/permission/menu`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   });
 };

@@ -41,7 +41,6 @@ export const save = async (params: Record<string, any>) => {
 export const departmentTree = async () => {
   return request(`${Constants.api}/department/tree`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
   });
 };
 export const unLock = async (params: Record<string, any>) => {
