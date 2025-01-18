@@ -6,7 +6,7 @@ import Add from './compnents/Add';
 import React, { useEffect, useRef, useState } from 'react';
 
 export default () => {
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<ActionType>(null);
   const [addModalVisible, setAddModalVisible] = useState<boolean>(false);
   const [values, setValues] = useState<Record<string, any>>({});
   const [menuInfo, setMenuInfo] = useState<Record<string, any>>({});
