@@ -31,13 +31,13 @@ export default () => {
             hideInSearch:true,
           },
           {
-            title: 'sec-ch-ua',
-            dataIndex: 'ua',
+            title: '浏览器',
+            dataIndex: 'browser',
             hideInSearch:true,
           },
           {
-            title: 'user-agent',
-            dataIndex: 'userAgent',
+            title: '系统',
+            dataIndex: 'os',
             hideInSearch:true,
           },
           {

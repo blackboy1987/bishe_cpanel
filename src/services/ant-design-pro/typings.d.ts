@@ -12,6 +12,7 @@ declare namespace API {
     code?: number;
     data?: string;
     msg?: string;
+    authorities?: string;
   };
 
   type PageParams = {
